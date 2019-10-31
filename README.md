@@ -4,7 +4,7 @@
 
 - [Ixen Rodríguez Pérez - kurosaki1976](ixenrp1976@gmail.com)
 
-El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9` que funcione como provedor (responsabilidad de un subdominio delegada a otro servidor) y como servidor con zonas delegadas. Como tutorial en sí, se le guiará a través de todo el proceso de configuración, pero se requieren conocimientos iniciales de `DNS` y `Bind9`. En las [referencias](#referencias), encontrará enlaces a sitios de Internet que le pueden ayudar.
+El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9` que funcione como provedor (delegar responsabilidad de subdominios a otros servidores) y como servidor con zonas delegadas. Como tutorial en sí, se le guiará a través de todo el proceso de configuración, pero se requieren conocimientos iniciales de `DNS` y `Bind9`. En las [referencias](#referencias), encontrará enlaces a sitios de Internet que le pueden ayudar.
 
 ## Instalación de paquetes necesarios
 
