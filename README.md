@@ -11,4 +11,5 @@ El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9`
 ## Conclusiones
 
 ## Referencias
+* [HOWTO - Delegate a Sub-domain (a.k.a. subzone)](http://www.zytrax.com/books/dns/ch9/delegate.html)
 * [Bind9 como DNS con delegación de zona](https://www.sysadminsdecuba.com/2018/04/bind9-como-dns-con-delegacion-de-zona/)
