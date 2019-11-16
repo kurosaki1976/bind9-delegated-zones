@@ -355,8 +355,6 @@ logging {
 };
 ```
 
-> **NOTA**: Cuando se utiliza las funcionalidad de vistas, todas las definiciones de zonas **TIENEN** que estar contenidas dentro de éstas, de lo contrario el servicio no iniciará y generará códigos de error. Es por ello que -__en ambas configuraciones__-, el fichero **`/etc/bind/named.conf.default-zones`** fue incluido en cada definición de vista y no en el fichero de configuración principal.
-
 ## Comprobaciones
 
 Comprobar la existencia de errores tanto en la configuración como en los ficheros de zonas.
@@ -369,13 +367,6 @@ named-checkzone example.tld /etc/bind/db.example.tld
 named-checkzone 16.172.IN-ADDR.ARPA /etc/bind/db.16.172.in-addr.arpa
 named-checkzone foo.example.tld /etc/bind/db.example.tld
 named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.16.172.in-addr.arpa
-```
-
-ó
-
-```bash
-named-checkzone foo.example.tld /etc/bind/db.foo.example.tld
-named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa
 ```
 
 * Servidor `DNS` subzonas de dominio e inversas delegadas
@@ -399,6 +390,10 @@ host 172.16.23.194
 ```
 
 ## Conclusiones
+
+Cuando se utiliza las funcionalidad de vistas, todas las definiciones de zonas **TIENEN** que estar contenidas dentro de éstas, de lo contrario el servicio no iniciará y generará códigos de error. Es por ello que -__en ambas configuraciones__-, el fichero **`/etc/bind/named.conf.default-zones`** fue incluido en cada definición de vista y no en el fichero de configuración principal.
+
+Las configuraciones mostradas en esta guía son aplicables a los entornos de red `VPN` corporativas existentes en Cuba.
 
 ## Referencias
 * [Bind9 - Debian Wiki](https://wiki.debian.org/Bind9)
