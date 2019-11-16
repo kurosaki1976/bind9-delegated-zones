@@ -367,6 +367,13 @@ Comprobar la existencia de errores tanto en la configuración como en los ficher
 named-checkconf -z
 named-checkzone example.tld /etc/bind/db.example.tld
 named-checkzone 16.172.IN-ADDR.ARPA /etc/bind/db.16.172.in-addr.arpa
+named-checkzone foo.example.tld /etc/bind/db.example.tld
+named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.16.172.in-addr.arpa
+```
+
+ó
+
+```bash
 named-checkzone foo.example.tld /etc/bind/db.foo.example.tld
 named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa
 ```
