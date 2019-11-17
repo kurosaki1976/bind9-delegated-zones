@@ -1,0 +1,25 @@
+options {
+    version none;
+    directory "/var/cache/bind";
+    dnssec-enable yes;
+    dnssec-validation yes;
+    listen-on { 172.16.23.194; 127.0.0.1; };
+    auth-nxdomain no;
+    listen-on-v6 { none; };
+    empty-zones-enable no;
+    allow-query { any; };
+    recursion no;
+    minimal-responses yes;
+    max-cache-size 128m;
+    rate-limit {
+        responses-per-second 15;
+        log-only no;
+    };
+    flush-zones-on-shutdown yes;
+    prefetch 0;
+};
+
+controls {
+    inet 127.0.0.1 port 953
+        allow { localhost; 172.16.23.194; } keys { rndc-key; };
+};

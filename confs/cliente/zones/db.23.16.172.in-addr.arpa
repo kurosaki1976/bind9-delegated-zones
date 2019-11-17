@@ -1,0 +1,35 @@
+;
+; 172.16.23.192/29 Reverse Zone File
+;
+$ORIGIN .
+$TTL 604800
+; usando sitaxis "/" de CIDR
+192/29.23.16.172.IN-ADDR.ARPA IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
+; usando sitaxis "-" de rango
+;192-199.23.16.172.IN-ADDR.ARPA IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
+            2019091001  ; serial
+            3600        ; refresh
+            180         ; retry
+            604800      ; expire
+            3600        ; negative cache ttl
+            )
+;
+        NS  ns.foo.example.tld.
+;
+; usando sitaxis "/" de CIDR
+$ORIGIN 192/29.23.16.172.IN-ADDR.ARPA.
+193   IN  PTR router.foo.example.tld.
+194   IN  PTR ns.foo.example.tld.
+195   IN  PTR mail.foo.example.tld.
+196   IN  PTR www.foo.example.tld.
+197   IN  PTR jb.foo.example.tld.
+198   IN  PTR ftp.foo.example.tld.
+;
+; usando sitaxis "-" de rango
+;$ORIGIN 192-199.23.16.172.IN-ADDR.ARPA.
+;193   IN  PTR router.foo.example.tld.
+;194   IN  PTR ns.foo.example.tld.
+;195   IN  PTR mail.foo.example.tld.
+;196   IN  PTR www.foo.example.tld.
+;197   IN  PTR jb.foo.example.tld.
+;198   IN  PTR ftp.foo.example.tld.
