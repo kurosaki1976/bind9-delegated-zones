@@ -2,15 +2,21 @@ view "corporate" {
     match-clients { localhost; 172.16.0.0/16; };
     recursion yes;
     allow-recursion { localhost; 172.16.0.0/16; };
-    allow-recursion-on { localhost; 172.16.23.194; };
+    allow-recursion-on { localhost; 172.16.0.1; };
     include "/etc/bind/named.conf.default-zones";
-    zone "foo.example.tld" {
+    zone "example.tld" {
         type master;
-        file "/etc/bind/db.foo.example.tld";
+        file "/etc/bind/db.example.tld";
         allow-update { none; };
         notify no;
     };
-    zone "192/29.23.16.172.in-addr.arpa" {
+    zone "0.16.172.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.0.16.172.in-addr.arpa";
+        allow-update { none; };
+        notify no;
+    };
+    zone "23.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
         allow-update { none; };

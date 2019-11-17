@@ -12,7 +12,7 @@ Existen dos métodos o estrategias de delegación de subdominios:
 
 1. __Delegación completa de subdominios__
 
-    En este caso, se deben agregar los correspondientes registros `NS` de los subdominios y, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, uno o más servidores de nombres para los subdominios; al archivo de zona de dominio principal, y un archivo de zona por cada subdominio delegado.
+    En este caso, se deben agregar los correspondientes registros `NS` de los subdominios y, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, uno o más servidores de nombres para los subdominios; al archivo de zona de dominio principal, y crear archivos de zona por cada inversa gestionada.
 
     > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente. Aplicable en los entornos con transferencia de zonas.
 
@@ -30,7 +30,7 @@ El escenario ejemplo lo constituye una red corporativa, donde el nodo principal 
 
     * Zona `DNS`: `example.tld`
     * `FQND` servidor `DNS`: `ns.example.tld`
-    * Zona inversa: `16.172.in-addr.arpa`
+    * Zona inversa: `0.16.172.in-addr.arpa`
     * Dirección `IP` servidor `DNS`: `172.16.0.1`
 
 2. __Subdominio delegado__
@@ -114,9 +114,15 @@ view "corporate" {
         allow-update { none; };
         notify no;
     };
-    zone "16.172.in-addr.arpa" {
+    zone "0.16.172.in-addr.arpa" {
         type master;
-        file "/etc/bind/db.16.172.in-addr.arpa";
+        file "/etc/bind/db.0.16.172.in-addr.arpa";
+        allow-update { none; };
+        notify no;
+    };
+    zone "23.16.172.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.23.16.172.in-addr.arpa";
         allow-update { none; };
         notify no;
     };
@@ -158,15 +164,15 @@ $ORIGIN foo.example.tld.
 ns IN  A   172.16.23.194
 ```
 
-* `/etc/bind/db.16.172.in-addr.arpa`
+* `/etc/bind/db.0.16.172.in-addr.arpa`
 
 ```bash
 ;
-; 172.16.0.0/16 Reverse Zone File
+; 172.16.0.0/24 Reverse Zone File
 ;
 $ORIGIN .
 $TTL 604800
-16.172.IN-ADDR.ARPA IN  SOA ns.example.tld. postmaster.example.tld. (
+0.16.172.IN-ADDR.ARPA IN  SOA ns.example.tld. postmaster.example.tld. (
             2019091001  ; serial
             3600        ; refresh
             180         ; retry
@@ -179,6 +185,25 @@ $TTL 604800
 $ORIGIN 0.16.172.in-addr.arpa.
 1    IN  PTR ns.example.tld.
 10   IN  PTR mx.example.tld.
+```
+
+* `/etc/bind/db.23.16.172.in-addr.arpa`
+
+```bash
+;
+; 172.16.23.192/29 Reverse Zone File
+;
+$ORIGIN .
+$TTL 604800
+23.16.172.IN-ADDR.ARPA IN  SOA ns.example.tld. postmaster.example.tld. (
+            2019091001  ; serial
+            3600        ; refresh
+            180         ; retry
+            604800      ; expire
+            3600        ; negative cache ttl
+            )
+;
+        NS  ns.example.tld.
 ;
 ; zona inversa delegada "172.16.23.192/29"
 ; usando "/" sintaxis de CIDR y macro $GENERATE
@@ -245,7 +270,7 @@ controls {
 * `/etc/bind/named.conf.local`
 
 ```bash
-view "corporate" {
+view "delegated" {
     match-clients { localhost; 172.16.0.0/16; };
     recursion yes;
     allow-recursion { localhost; 172.16.0.0/16; };
@@ -370,20 +395,22 @@ logging {
 
 1. Comprobar la existencia de errores tanto en la configuración como en los ficheros de zonas.
 
+```bash
+named-checkconf -z
+```
+
 * Servidor `DNS` nivel superior
 
 ```bash
-named-checkconf -z
 named-checkzone example.tld /etc/bind/db.example.tld
-named-checkzone 16.172.IN-ADDR.ARPA /etc/bind/db.16.172.in-addr.arpa
+named-checkzone 0.16.172.IN-ADDR.ARPA /etc/bind/db.0.16.172.in-addr.arpa
 named-checkzone foo.example.tld /etc/bind/db.example.tld
-named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.16.172.in-addr.arpa
+named-checkzone 23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa
 ```
 
-* Servidor `DNS` subzonas de dominio e inversas delegadas
+* Servidor `DNS` subzonas de dominio e inversa delegadas
 
 ```bash
-named-checkconf -z
 named-checkzone foo.example.tld /etc/bind/db.foo.example.tld
 named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa
 ```
@@ -405,9 +432,11 @@ host 172.16.23.194
 
 ## Conclusiones
 
-Cuando se utiliza las funcionalidad de vistas, todas las definiciones de zonas **TIENEN** que estar contenidas dentro de éstas, de lo contrario el servicio no iniciará y generará códigos de error. Es por ello que -__en ambas configuraciones__-, el fichero **`/etc/bind/named.conf.default-zones`** fue incluido en cada definición de vista y no en el fichero de configuración principal.
+- Cuando se utiliza las funcionalidad de vistas, todas las definiciones de zonas **TIENEN** que estar contenidas dentro de éstas, de lo contrario el servicio no iniciará y generará códigos de error. Es por ello que -__en ambas configuraciones__-, el fichero **`/etc/bind/named.conf.default-zones`** fue incluido en cada definición de vista y no en el fichero de configuración principal.
 
-Las configuraciones mostradas en esta guía utilizan la estrategia de __delegación completa de subdominios__, y son aplicables a los entornos de red `VPN` corporativas existentes en Cuba.
+- En el caso de zonas inversas delegadas, la recursividad es obligatoria, sin importar el uso o no de la funcionalidad de vistas. Ello se debe a que la consulta es redirigida desde el servidor `DNS` responsable de la zona principal hacia el responsable de la subred delegada, y viceversa.
+
+- Las configuraciones mostradas en esta guía utilizan la estrategia de __delegación completa de subdominios__, y son aplicables a los entornos de red `VPN` corporativas existentes en Cuba.
 
 ## Referencias
 * [Bind9 - Debian Wiki](https://wiki.debian.org/Bind9)
@@ -419,3 +448,5 @@ Las configuraciones mostradas en esta guía utilizan la estrategia de __delegaci
 * [Clarifications to the DNS Specification](https://tools.ietf.org/html/rfc2181)
 * [Domain Name System Structure and Delegation](https://tools.ietf.org/html/rfc1591)
 * [Classless IN-ADDR.ARPA delegation](https://tools.ietf.org/html/rfc2317)
+* [Classless in-addr.arpa subnet delegation](https://kb.isc.org/docs/aa-01589)
+* [Classless reverse address delegation](https://www.netdaily.org/tag/29-classless-reverse-delegation-bind/)
