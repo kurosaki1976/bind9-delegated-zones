@@ -10,13 +10,13 @@ El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9`
 
 Existen dos métodos o estrategias de delegación de subdominios:
 
-1. __Delegación completa del subdominio__
+1. __Delegación completa de subdominios__
 
     En este caso, se deben agregar los correspondientes registros `NS` de los subdominios y, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, uno o más servidores de nombres para los subdominios; al archivo de zona de dominio principal, y un archivo de zona por cada subdominio delegado.
 
     > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente.
 
-2. __Crear un subdominio virtual o pseudo dominio__
+2. __Creación de subdominios virtuales o pseudo dominios__
 
     En este caso, se definirá la configuración de los subdominios, así como la configuración de la zona principal; en un mismo archivo de zona de dominio.
 
@@ -396,7 +396,7 @@ host 172.16.23.194
 
 Cuando se utiliza las funcionalidad de vistas, todas las definiciones de zonas **TIENEN** que estar contenidas dentro de éstas, de lo contrario el servicio no iniciará y generará códigos de error. Es por ello que -__en ambas configuraciones__-, el fichero **`/etc/bind/named.conf.default-zones`** fue incluido en cada definición de vista y no en el fichero de configuración principal.
 
-Las configuraciones mostradas en esta guía son aplicables a los entornos de red `VPN` corporativas existentes en Cuba.
+Las configuraciones mostradas en esta guía utilizan la estrategia de __delegación completa de subdominios__, y son aplicables a los entornos de red `VPN` corporativas existentes en Cuba.
 
 ## Referencias
 * [Bind9 - Debian Wiki](https://wiki.debian.org/Bind9)
