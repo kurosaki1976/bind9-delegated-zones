@@ -16,7 +16,7 @@ Existen dos métodos o estrategias de delegación de subdominios:
 
     > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente.
 
-2. __Creación de subdominios virtuales o pseudo dominios__
+2. __Creación de subdominios virtuals o pseudo dominios__
 
     En este caso, se definirá la configuración de los subdominios, así como la configuración de la zona principal; en un mismo archivo de zona de dominio.
 
@@ -293,8 +293,12 @@ foo.example.tld IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
 ;
 $ORIGIN foo.example.tld.
 ;
-ns    IN  A   172.16.23.194
-mail  IN  A   172.16.23.195
+router IN  A   172.16.23.193
+ns     IN  A   172.16.23.194
+mail   IN  A   172.16.23.195
+www    IN  A   172.16.23.196
+jb     IN  A   172.16.23.197
+ftp    IN  A   172.16.23.198
 ```
 
 * `/etc/bind/db.23.16.172.in-addr.arpa`
@@ -316,8 +320,12 @@ $TTL 604800
         NS  ns.foo.example.tld.
 ;
 $ORIGIN 192/29.23.16.172.IN-ADDR.ARPA.
+193   IN  PTR router.foo.example.tld.
 194   IN  PTR ns.foo.example.tld.
 195   IN  PTR mail.foo.example.tld.
+196   IN  PTR www.foo.example.tld.
+197   IN  PTR jb.foo.example.tld.
+198   IN  PTR ftp.foo.example.tld.
 ```
 
 > **NOTA**: Si se usa `-` (sintáxis de rango), la definición de la zona inversa sería `192-29.23.16.172.IN-ADDR.ARPA`.
@@ -382,7 +390,12 @@ named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arp
 
 > **NOTA**: Si se usa `-` (sintáxis de rango), la comprobación sería `named-checkzone 192-29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa`.
 
-2. Comprobar el servicio.
+2. Reiniciar y comprobar el servicio.
+
+```bash
+systemctl restart bind.service
+tail -fn100 /var/log/syslog
+```
 
 ```bash
 dig example.tld

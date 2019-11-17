@@ -1,0 +1,29 @@
+logging {
+    channel "named-query" {
+        file "/var/log/named_query.log" versions 3 size 5m;
+        severity debug 3;
+        print-time yes;
+    };
+    channel "debug" {
+        file "/var/log/named.log" versions 2 size 3m;
+        print-time yes;
+        print-category yes;
+    };
+    category "queries" { "named-query"; };
+    category "client" { "debug"; };
+    category "config" { "debug"; };
+    category "database" { "debug"; };
+    category "default" { "debug"; };
+    category "dispatch" { "debug"; };
+    category "dnssec" { "debug"; };
+    category "general" { "debug"; };
+    category "lame-servers" { "debug"; };
+    category "network" { "debug"; };
+    category "notify" { "debug"; };
+    category "resolver" { "debug"; };
+    category "security" { "debug"; };
+    category "unmatched" { "debug"; };
+    category "update" { "debug"; };
+    category "xfer-in" { "debug"; };
+    category "xfer-out" { "debug"; };
+};
