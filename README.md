@@ -37,7 +37,7 @@ El escenario ejemplo lo constituye una red corporativa, donde el nodo principal 
 
     * Subzona `DNS` delegada: `foo.example.tld`
     * `FQND` servidor `DNS`: `ns.foo.example.tld`
-    * Zona inversa delegada: `29/192.23.16.172.in-addr.arpa`
+    * Zona inversa delegada: `192/29.23.16.172.in-addr.arpa`
     * Dirección `IP` servidor `DNS`: `172.16.23.194`
 
 ## Administración del servidor `Bind9 DNS`
