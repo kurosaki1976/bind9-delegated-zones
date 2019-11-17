@@ -12,7 +12,7 @@ Existen dos métodos o estrategias de delegación de subdominios:
 
 1. __Delegación completa del subdominio__
 
-    En este caso, se deben agregar los correspondientes registros `NS` de los subdominios y, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, uno o más servidores de nombres para los subdominios; al archivo de zona de dominio principal, y referenciar las zonas por cada subdominio delegado.
+    En este caso, se deben agregar los correspondientes registros `NS` de los subdominios y, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, uno o más servidores de nombres para los subdominios; al archivo de zona de dominio principal, y crear los ficheros de zonas por cada subdominio delegado.
 
     > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente.
 
