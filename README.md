@@ -314,7 +314,7 @@ foo.example.tld IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
         NS  ns.foo.example.tld.
         A   172.16.23.195
         MX  10   mail.foo.example.tld.
-        TXT "v=spf1 ip4:172.16.23.195 a:mail.foo.example.tld ~all"
+        TXT "v=spf1 ip4:172.16.23.195 a:mail.foo.example.tld include:example.tld ~all"
 ;
 $ORIGIN foo.example.tld.
 ;
