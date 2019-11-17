@@ -1,4 +1,4 @@
-view "delegated" {
+view "cliente" {
     match-clients { localhost; 172.16.0.0/16; };
     recursion yes;
     allow-recursion { localhost; 172.16.0.0/16; };
