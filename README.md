@@ -187,7 +187,7 @@ $ORIGIN 23.16.172.IN-ADDR.ARPA.
 $GENERATE 192-199 $ CNAME $.192/29.23.16.172.IN-ADDR.ARPA.
 ```
 
-> **NOTA**: La sintáxis `192/29` es un modo artificial (pero legítimo) para la construcción de zonas inversas delegadas. Antes del `[RFC 2181](https://tools.ietf.org/html/rfc2181)` el símbolo `/` no era un caracter legal para ser usado en el sistema de nombres de dominio, en su lugar se usaba el símbolo `-`.
+> **NOTA**: La sintáxis `192/29` es un modo artificial (pero legítimo) para la construcción de zonas inversas delegadas. Antes del [RFC 2181](https://tools.ietf.org/html/rfc2181) el símbolo `/` no era un caracter legal para ser usado en el sistema de nombres de dominio, en su lugar se usaba el símbolo `-`.
 
 Entonces es válido también realizar la delegación de esta forma:
 
