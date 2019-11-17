@@ -390,14 +390,12 @@ named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arp
 
 > **NOTA**: Si se usa `-` (sintáxis de rango), la comprobación sería `named-checkzone 192-29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa`.
 
-2. Reiniciar y comprobar el servicio.
+2. Reiniciar el servicio y hacer comprobaciones.
 
 ```bash
 systemctl restart bind.service
 tail -fn100 /var/log/syslog
-```
 
-```bash
 dig example.tld
 host ns.example.tld
 dig foo.example.tld
