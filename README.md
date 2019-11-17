@@ -257,7 +257,7 @@ view "corporate" {
         allow-update { none; };
         notify no;
     };
-    zone "192-199.23.16.172.in-addr.arpa" {
+    zone "192/29.23.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
         allow-update { none; };
