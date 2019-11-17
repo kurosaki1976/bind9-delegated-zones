@@ -12,7 +12,7 @@ Existen dos métodos o estrategias de delegación de subdominios:
 
 1. __Delegación completa de subdominios__
 
-    En este caso, se deben agregar los correspondientes registros `NS` de los subdominios y, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, uno o más servidores de nombres para los subdominios; al archivo de zona de dominio principal, y crear archivos de zona por cada inversa gestionada.
+    En este caso, se deben agregar al archivo de zona directa del dominio principal, los correspondientes registros `NS` de los subdominios y, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, uno o más servidores de nombres para los subdominios; y crear los archivos de zona por cada inversa gestionada.
 
     > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente. Aplicable en los entornos con transferencia de zonas.
 
@@ -191,7 +191,7 @@ $ORIGIN 0.16.172.in-addr.arpa.
 
 ```bash
 ;
-; 172.16.23.192/29 Reverse Zone File
+; 172.16.23.0/24 Reverse Zone File
 ;
 $ORIGIN .
 $TTL 604800
@@ -330,7 +330,7 @@ ftp    IN  A   172.16.23.198
 
 ```bash
 ;
-; 172.16.23.192/29 REVERSE Zone File
+; 172.16.23.192/29 Reverse Zone File
 ;
 $ORIGIN .
 $TTL 604800
