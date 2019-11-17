@@ -405,4 +405,6 @@ Las configuraciones mostradas en esta guía son aplicables a los entornos de red
 * [3. DNS Reverse Mapping](http://www.zytrax.com/books/dns/ch3/)
 * [$GENERATE Directive](http://www.zytrax.com/books/dns/ch8/generate.html)
 * [Internet Systems Consortium](https://www.youtube.com/user/ISCdotorg/videos)
-* [Bind9 como DNS con delegación de zona](https://www.sysadminsdecuba.com/2018/04/bind9-como-dns-con-delegacion-de-zona/)
+* [Clarifications to the DNS Specification](https://tools.ietf.org/html/rfc2181)
+* [Domain Name System Structure and Delegation](https://tools.ietf.org/html/rfc1591)
+* [Classless IN-ADDR.ARPA delegation](https://tools.ietf.org/html/rfc2317)
