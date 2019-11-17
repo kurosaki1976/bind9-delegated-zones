@@ -102,7 +102,7 @@ controls {
 * `/etc/bind/named.conf.local`
 
 ```bash
-view "corporate" {
+view "proveedor" {
     match-clients { localhost; 172.16.0.0/16; };
     recursion yes;
     allow-recursion { localhost; 172.16.0.0/16; };
@@ -270,7 +270,7 @@ controls {
 * `/etc/bind/named.conf.local`
 
 ```bash
-view "delegated" {
+view "cliente" {
     match-clients { localhost; 172.16.0.0/16; };
     recursion yes;
     allow-recursion { localhost; 172.16.0.0/16; };
