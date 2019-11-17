@@ -187,15 +187,17 @@ $ORIGIN 23.16.172.IN-ADDR.ARPA.
 $GENERATE 192-199 $ CNAME $.192/29.23.16.172.IN-ADDR.ARPA.
 ```
 
-> **NOTA**: La sintáxis `192/29` es un modo artificial (pero legítimo) para la construcción de zonas inversas delegadas. Antes del surgimiento del `RFC 2181` el símbolo `/` no era un caracter legal para ser usado en el sistema de nombres de dominio, en su lugar se usaba el símbolo `-`. Entonces es válido también realizar la delegación de esta forma:
+> **NOTA**: La sintáxis `192/29` es un modo artificial (pero legítimo) para la construcción de zonas inversas delegadas. Antes del surgimiento del `RFC 2181` el símbolo `/` no era un caracter legal para ser usado en el sistema de nombres de dominio, en su lugar se usaba el símbolo `-`.
 
-> ```bash
-> ; zona inversa delegada "172.16.23.192/29"
-> ; usando "-" sintaxis de rango y macro $GENERATE
-> $ORIGIN 23.16.172.IN-ADDR.ARPA.
-> 192-29  IN      NS      ns.foo.example.tld.
-> $GENERATE 192-199 $ CNAME $.192-29.23.16.172.IN-ADDR.ARPA.
-> ```
+Entonces es válido también realizar la delegación de esta forma:
+
+```bash
+; zona inversa delegada "172.16.23.192/29"
+; usando "-" sintaxis de rango y macro $GENERATE
+$ORIGIN 23.16.172.IN-ADDR.ARPA.
+192-29  IN      NS      ns.foo.example.tld.
+$GENERATE 192-199 $ CNAME $.192-29.23.16.172.IN-ADDR.ARPA.
+```
 
 #### Servidor `Bind9 DNS` con subdominio delegado
 
