@@ -142,7 +142,7 @@ $TTL 604800
 example.tld IN  SOA ns.example.tld. postmaster.example.tld. (
             2019091201  ; Serial
             3600        ; refresh
-            180     ; retry
+            180         ; retry
             604800      ; expire
             3600        ; negative cache ttl
             )
