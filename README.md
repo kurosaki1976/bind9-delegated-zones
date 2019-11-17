@@ -152,9 +152,10 @@ ns  IN  A   172.16.0.1
 mx  IN  A   172.16.0.10
 ;
 ; subdominio delegado "foo.example.tld"
-foo  IN  NS  ns.foo.example.tld.
-         A   172.16.23.194
-ns.foo   IN  A   172.16.23.194
+$ORIGIN foo.example.tld.
+@  IN  NS  ns.foo.example.tld.
+       A   172.16.23.194
+ns IN  A   172.16.23.194
 ```
 
 * `/etc/bind/db.16.172.in-addr.arpa`
