@@ -357,7 +357,7 @@ logging {
 
 ## Comprobaciones
 
-Comprobar la existencia de errores tanto en la configuración como en los ficheros de zonas.
+1. Comprobar la existencia de errores tanto en la configuración como en los ficheros de zonas.
 
 * Servidor `DNS` nivel superior
 
@@ -379,7 +379,7 @@ named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arp
 
 > **NOTA**: Si se usa `-` (sintáxis de rango), la comprobación sería `named-checkzone 192-29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa`.
 
-Comprobar el servicio.
+2. Comprobar el servicio.
 
 ```bash
 dig example.tld
