@@ -243,6 +243,49 @@ $ORIGIN 23.16.172.IN-ADDR.ARPA.
 $GENERATE 192-199 $ CNAME $.192-199.23.16.172.IN-ADDR.ARPA.
 ```
 
+#### Servidor `Bind9 DNS` secundario de nivel superior
+
+1. Ficheros de configuración
+
+* `/etc/bind/named.conf`
+
+> Igual que el servidor primario.
+
+* `/etc/bind/named.conf.options`
+
+> Cambiar `listen-on { 172.16.0.18; 127.0.0.1; };` y `allow { localhost; 172.16.0.18; } keys { rndc-key; };`.
+
+* `/etc/bind/named.conf.local`
+
+```bash
+view "proveedor" {
+    match-clients { localhost; 172.16.0.0/16; };
+    recursion yes;
+    allow-recursion { localhost; 172.16.0.0/16; };
+    allow-recursion-on { localhost; 172.16.0.18; };
+    include "/etc/bind/named.conf.default-zones";
+    zone "example.tld" {
+        type slave;
+        file "/etc/bind/db.example.tld";
+        masters { 172.16.0.1; };
+    };
+    zone "0.16.172.in-addr.arpa" {
+        type slave;
+        file "/etc/bind/db.0.16.172.in-addr.arpa";
+        masters { 172.16.0.1; };
+    };
+    zone "23.16.172.in-addr.arpa" {
+        type slave;
+        file "/etc/bind/db.23.16.172.in-addr.arpa";
+        masters { 172.16.0.18; };
+    };
+};
+```
+
+2. Ficheros de declaración de zonas
+
+> Se obtienen por transferencia desde el servidor primario.
+
 #### Servidor `Bind9 DNS` con subdominio delegado
 
 1. Ficheros de configuración
