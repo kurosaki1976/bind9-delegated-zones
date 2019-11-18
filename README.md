@@ -14,13 +14,13 @@ Existen dos métodos o estrategias de delegación de subdominios:
 
     En este caso, se deben agregar al archivo de zona directa del dominio superior, los correspondientes registros `NS`, según el tipo; los registros `A` ó `AAAA` -conocidos como (`glue records`)-, y uno o más servidores de nombres para los subdominios; así como crear los archivos de zona por cada inversa gestionada.
 
-    > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente. Aplicable en los entornos con transferencia de zonas.
+    > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente.
 
 2. __Creación de subdominios virtuals o pseudo dominios__
 
     En este caso, se definirá la configuración de los subdominios, así como la configuración de la zona principal; en un mismo archivo de zona de dominio.
 
-    > **NOTA**: Significa que la definición del dominio principal y la de los subdominios se incluyen en un archivo de zona única; no requiere nuevos servidores de nombres, ni registros `NS` ni `glue records` de tipo `A / AAAA`. Lo negativo es que cualquier cambio en la zona principal o en los subdominios requerirá una recarga total de la primera.
+    > **NOTA**: Significa que la definición del dominio principal y la de los subdominios se incluyen en un archivo de zona única; no requiere nuevos servidores de nombres, ni registros `NS` ni `glue records` de tipo `A / AAAA`. Lo negativo es que cualquier cambio en la zona principal o en los subdominios requerirá una recarga total de la primera. Aplicable en los entornos con transferencia de zonas.
 
 ## Escenario
 
