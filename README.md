@@ -90,7 +90,7 @@ options {
     dnssec-enable yes;
     dnssec-validation yes;
     listen-on { 172.16.0.1; 127.0.0.1; };
-    auth-nxdomain yes;
+    auth-nxdomain no;
     listen-on-v6 { none; };
     empty-zones-enable no;
     allow-query { any; };
