@@ -18,7 +18,7 @@ Debido al importante papel que desempeñan las zonas en `DNS`, se pretende que �
 
 Una zona se inicia como una base de datos de almacenamiento para un único nombre de dominio `DNS`. Si se agregan otros dominios bajo el dominio utilizado para crear la zona, estos dominios pueden formar parte de la misma zona o pertenecer a otra zona. Después de agregar un subdominio, se puede: administrarlo e incluirlo como parte de los registros de la zona original, o bien delegarlo a otra zona creada para admitir el subdominio.
 
-Por lo tanto, se pueden definir dos métodos o estrategias de delegación de subdominios:
+Por tanto, se pueden definir dos métodos o estrategias de delegación de subdominios:
 
 1. __Delegación completa de subdominios__
 
