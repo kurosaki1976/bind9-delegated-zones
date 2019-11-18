@@ -10,7 +10,7 @@ El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9`
 
 #### Descripción de las zonas y de la transferencia de zonas
 
-El Sistema de nombres de dominio [DNS](https://es.wikipedia.org/wiki/Sistema_de_nombres_de_dominio) permite dividir un espacio de nombres `DNS` en zonas, que almacenan información de nombres de uno o varios dominios `DNS`. Para cada nombre de dominio `DNS` incluido en una zona, la zona pasa a ser el origen autorizado de la información acerca de ese dominio.
+El sistema de nombres de dominio [DNS](https://es.wikipedia.org/wiki/Sistema_de_nombres_de_dominio) permite dividir un espacio de nombres `DNS` en zonas, que almacenan información de nombres de uno o varios dominios `DNS`. Para cada nombre de dominio `DNS` incluido en una zona, la zona pasa a ser el origen autorizado de la información acerca de ese dominio.
 
 #### Descripción de la diferencia entre zonas y dominios
 
