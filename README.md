@@ -277,7 +277,7 @@ view "proveedor" {
     zone "23.16.172.in-addr.arpa" {
         type slave;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
-        masters { 172.16.0.18; };
+        masters { 172.16.0.1; };
     };
 };
 ```
