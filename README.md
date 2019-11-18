@@ -124,21 +124,18 @@ view "proveedor" {
     zone "example.tld" {
         type master;
         file "/etc/bind/db.example.tld";
-        allow-update { none; };
         allow-transfer { 172.16.0.18; };
         notify yes;
     };
     zone "0.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.0.16.172.in-addr.arpa";
-        allow-update { none; };
         allow-transfer { 172.16.0.18; };
         notify yes;
     };
     zone "23.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
-        allow-update { none; };
         allow-transfer { 172.16.0.18; };
         notify yes;
     };
