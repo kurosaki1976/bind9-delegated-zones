@@ -12,6 +12,8 @@ El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9`
 
 El sistema de nombres de dominio [DNS](https://es.wikipedia.org/wiki/Sistema_de_nombres_de_dominio) permite dividir un espacio de nombres `DNS` en zonas, que almacenan información de nombres de uno o varios dominios `DNS`. Para cada nombre de dominio `DNS` incluido en una zona, la zona pasa a ser el origen autorizado de la información acerca de ese dominio.
 
+Debido al importante papel que desempeñan las zonas en `DNS`, se pretende que éstas estén disponibles desde varios servidores `DNS` en la red para proporcionar disponibilidad y tolerancia a errores al resolver consultas de nombres. En caso contrario, si sólo se utiliza un servidor y éste no responde, se pueden producir errores en las consultas de nombres de la zona. Para que otros servidores alojen una zona, son necesarias transferencias de zona que repliquen y sincronicen todas las copias de la zona utilizadas en cada servidor configurado para alojar la zona.
+
 #### Descripción de la diferencia entre zonas y dominios
 
 Una zona se inicia como una base de datos de almacenamiento para un único nombre de dominio `DNS`. Si se agregan otros dominios bajo el dominio utilizado para crear la zona, estos dominios pueden formar parte de la misma zona o pertenecer a otra zona. Después de agregar un subdominio, se puede: administrarlo e incluirlo como parte de los registros de la zona original, o bien delegarlo a otra zona creada para admitir el subdominio.
