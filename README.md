@@ -20,8 +20,7 @@ Existen dos métodos o estrategias de delegación de subdominios:
 
     En este caso, se definirá la configuración de los subdominios, así como la configuración de la zona principal; en un mismo archivo de zona de dominio.
 
-    > **NOTA**: Significa que la definición del dominio principal y la de los subdominios se incluyen en un archivo de zona única; no requiere nuevos servidores de nombres, ni registros `NS` ni `glue records` de tipo `A / AAAA`. Lo negativo es que cualquier cambio en la zona principal o en los subdominios requerirá una recarga total de la primera. Aplicable en los entornos con transferencia de zonas.
-
+    > **NOTA**: Significa que la definición del dominio principal y la de los subdominios se incluyen en un archivo de zona única; no requiere nuevos servidores de nombres, ni registros `NS` ni `glue records` de tipo `A / AAAA`. Lo negativo es que cualquier cambio en la zona principal o en los subdominios requerirá una recarga total de la primera.
 ## Escenario
 
 El escenario ejemplo lo constituye una red corporativa, donde el nodo principal administra el dominio `example.tld` con direccionamiento `IPv4 172.16.0.0/16`, y ha decidido delegar la responsabilidad del subdomino `foo.example.tld` conjuntamente con la subred `172.16.23.192/29`. Teniendo en cuenta lo anterior podemos definir los siguientes parámetros:
