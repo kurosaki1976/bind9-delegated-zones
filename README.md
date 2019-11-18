@@ -32,7 +32,7 @@ Por lo tanto, se pueden definir dos métodos o estrategias de delegación de sub
 
 ## Escenario
 
-El escenario ejemplo lo constituye una red corporativa, donde el nodo principal administra el dominio `example.tld` con direccionamiento `IPv4 172.16.0.0/16`, y ha decidido delegar la responsabilidad del subdomino `foo.example.tld` conjuntamente con la subred `172.16.23.192/29`. Teniendo en cuenta lo anterior podemos definir los siguientes parámetros:
+El escenario ejemplo lo constituye una red corporativa, donde el nodo principal administra la zona `example.tld` con direccionamiento `IPv4 172.16.0.0/16`, y ha decidido delegar la responsabilidad del subdomino `foo.example.tld` conjuntamente con la subred `172.16.23.192/29`. Teniendo en cuenta lo anterior podemos definir los siguientes parámetros:
 
 1. __Dominio de nivel superior__
 
@@ -43,9 +43,9 @@ El escenario ejemplo lo constituye una red corporativa, donde el nodo principal 
 
 2. __Subdominio delegado__
 
-    * Subdominio `DNS` delegado: `foo.example.tld`
+    * Subdominio `DNS`: `foo.example.tld`
     * `FQND` servidor `DNS`: `ns.foo.example.tld`
-    * Subred delegada: `192/29.23.16.172.in-addr.arpa`
+    * Subred: `192/29.23.16.172.in-addr.arpa`
     * Dirección `IP` servidor `DNS`: `172.16.23.194`
 
 ## Administración del servidor `Bind9 DNS`
