@@ -284,7 +284,7 @@ view "proveedor" {
 
 2. Ficheros de declaración de zonas
 
-> Se obtienen por transferencia desde el servidor primario.
+> Se obtienen por transferencia desde el servidor primario. Para forzar la transferencia ejecutar `rndc reload`.
 
 #### Servidor `Bind9 DNS` con subdominio delegado
 
