@@ -172,9 +172,9 @@ example.tld IN  SOA ns1.example.tld. postmaster.example.tld. (
 ;
 $ORIGIN example.tld.
 ;
-ns  IN  A   172.16.0.1
-ns  IN  A   172.16.0.18
-mx  IN  A   172.16.0.10
+ns1  IN  A   172.16.0.1
+mx   IN  A   172.16.0.10
+ns2  IN  A   172.16.0.18
 ;
 ; subdominio delegado "foo.example.tld"
 $ORIGIN foo.example.tld.
