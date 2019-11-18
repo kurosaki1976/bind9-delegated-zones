@@ -8,7 +8,15 @@
 
 El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9` que funcione como provedor (delegar responsabilidad de subdominios a otros servidores) y servidor con zonas delegadas. Como tutorial en sí, se le guiará a través de todo el proceso de configuración, pero se requieren conocimientos iniciales de `DNS` y `Bind9`. En las [referencias](#referencias), encontrará enlaces a sitios de `Internet` que le pueden ayudar.
 
-Existen dos métodos o estrategias de delegación de subdominios:
+#### Descripción de las zonas y de la transferencia de zonas
+
+El Sistema de nombres de dominio [DNS](https://es.wikipedia.org/wiki/Sistema_de_nombres_de_dominio) permite dividir un espacio de nombres `DNS` en zonas, que almacenan información de nombres de uno o varios dominios `DNS`. Para cada nombre de dominio `DNS` incluido en una zona, la zona pasa a ser el origen autorizado de la información acerca de ese dominio.
+
+#### Descripción de la diferencia entre zonas y dominios
+
+Una zona se inicia como una base de datos de almacenamiento para un único nombre de dominio `DNS`. Si se agregan otros dominios bajo el dominio utilizado para crear la zona, estos dominios pueden formar parte de la misma zona o pertenecer a otra zona. Después de agregar un subdominio, se puede: administrarlo e incluirlo como parte de los registros de la zona original, o bien delegarlo a otra zona creada para admitir el subdominio.
+
+Por lo tanto, se pueden definir dos métodos o estrategias de delegación de subdominios:
 
 1. __Delegación completa de subdominios__
 
@@ -21,6 +29,7 @@ Existen dos métodos o estrategias de delegación de subdominios:
     En este caso, se definirá la configuración de los subdominios, así como la configuración de la zona principal; en un mismo archivo de zona de dominio.
 
     > **NOTA**: Significa que la definición del dominio principal y la de los subdominios se incluyen en un archivo de zona única; no requiere nuevos servidores de nombres, ni registros `NS` ni `glue records` de tipo `A / AAAA`. Lo negativo es que cualquier cambio en la zona principal o en los subdominios requerirá una recarga total de la primera.
+
 ## Escenario
 
 El escenario ejemplo lo constituye una red corporativa, donde el nodo principal administra el dominio `example.tld` con direccionamiento `IPv4 172.16.0.0/16`, y ha decidido delegar la responsabilidad del subdomino `foo.example.tld` conjuntamente con la subred `172.16.23.192/29`. Teniendo en cuenta lo anterior podemos definir los siguientes parámetros:
