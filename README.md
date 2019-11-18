@@ -446,7 +446,7 @@ host 172.16.23.194
 
 - Las configuraciones mostradas en esta guía utilizan la estrategia de __delegación completa de subdominios__, y son aplicables a los entornos de red `VPN` corporativas existentes en Cuba.
 
-- La delegación completa tiene como inconveniente que si los servidores de nombre del subdominio delegado llegan a estar inalcanzables, la resolución no tendrá éxito; por eso es común encontrarnos en Cuba como los entornos de transferecia de zonas.
+- La delegación completa tiene como inconveniente que si los servidores de nombre del subdominio delegado llegan a estar inalcanzables, la resolución no tendrá éxito; por eso es común encontrarnos en Cuba con configuraciones que incluyen la transferecia de zonas.
 
 ## Referencias
 * [Bind9 - Debian Wiki](https://wiki.debian.org/Bind9)
