@@ -39,9 +39,11 @@ El escenario ejemplo lo constituye una red corporativa, donde el nodo principal 
 1. __Dominio de nivel superior__
 
     * Zona `DNS`: `example.tld`
-    * `FQND` servidor `DNS`: `ns.example.tld`
     * Zona inversa: `16.172.in-addr.arpa`
-    * Dirección `IP` servidor `DNS`: `172.16.0.1`
+    * `FQND` servidor `DNS` primario: `ns1.example.tld`
+    * Dirección `IP` servidor `DNS` primario: `172.16.0.1`
+    * `FQND` servidor `DNS` secundario: `ns2.example.tld`
+    * Dirección `IP` servidor `DNS` secundario: `172.16.0.18`
 
 2. __Subdominio delegado__
 
@@ -66,7 +68,7 @@ apt install bind9 dnsutils
 
 ### Configuración
 
-#### Servidor `Bind9 DNS` de nivel superior
+#### Servidor `Bind9 DNS` primario de nivel superior
 
 1. Ficheros de configuración
 
@@ -88,7 +90,7 @@ options {
     dnssec-enable yes;
     dnssec-validation yes;
     listen-on { 172.16.0.1; 127.0.0.1; };
-    auth-nxdomain no;
+    auth-nxdomain yes;
     listen-on-v6 { none; };
     empty-zones-enable no;
     allow-query { any; };
@@ -101,6 +103,7 @@ options {
     };
     flush-zones-on-shutdown yes;
     prefetch 0;
+    allow-transfer { none; };
 };
 
 controls {
@@ -122,19 +125,22 @@ view "proveedor" {
         type master;
         file "/etc/bind/db.example.tld";
         allow-update { none; };
-        notify no;
+        allow-transfer { 172.16.0.18; };
+        notify yes;
     };
     zone "0.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.0.16.172.in-addr.arpa";
         allow-update { none; };
-        notify no;
+        allow-transfer { 172.16.0.18; };
+        notify yes;
     };
     zone "23.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
         allow-update { none; };
-        notify no;
+        allow-transfer { 172.16.0.18; };
+        notify yes;
     };
 };
 ```
@@ -149,7 +155,7 @@ view "proveedor" {
 ;
 $ORIGIN .
 $TTL 604800
-example.tld IN  SOA ns.example.tld. postmaster.example.tld. (
+example.tld IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091201  ; Serial
             3600        ; refresh
             180         ; retry
@@ -157,14 +163,17 @@ example.tld IN  SOA ns.example.tld. postmaster.example.tld. (
             3600        ; negative cache ttl
             )
 ;
-        NS  ns.example.tld.
+        NS  ns1.example.tld.
+        NS  ns2.example.tld.
         A   172.16.0.1
+        A   172.16.0.18
         MX  10   mx.example.tld.
         TXT "v=spf1 ip4:172.16.0.10 a:mx.example.tld ~all"
 ;
 $ORIGIN example.tld.
 ;
 ns  IN  A   172.16.0.1
+ns  IN  A   172.16.0.18
 mx  IN  A   172.16.0.10
 ;
 ; subdominio delegado "foo.example.tld"
@@ -182,7 +191,7 @@ ns IN  A   172.16.23.194
 ;
 $ORIGIN .
 $TTL 604800
-0.16.172.IN-ADDR.ARPA IN  SOA ns.example.tld. postmaster.example.tld. (
+0.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001  ; serial
             3600        ; refresh
             180         ; retry
@@ -190,11 +199,13 @@ $TTL 604800
             3600        ; negative cache ttl
             )
 ;
-        NS  ns.example.tld.
+        NS  ns1.example.tld.
+        NS  ns2.example.tld.
 ;
 $ORIGIN 0.16.172.in-addr.arpa.
-1    IN  PTR ns.example.tld.
+1    IN  PTR ns1.example.tld.
 10   IN  PTR mx.example.tld.
+18   IN  PTR ns2.example.tld.
 ```
 
 * `/etc/bind/db.23.16.172.in-addr.arpa`
@@ -205,7 +216,7 @@ $ORIGIN 0.16.172.in-addr.arpa.
 ;
 $ORIGIN .
 $TTL 604800
-23.16.172.IN-ADDR.ARPA IN  SOA ns.example.tld. postmaster.example.tld. (
+23.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001  ; serial
             3600        ; refresh
             180         ; retry
@@ -213,7 +224,8 @@ $TTL 604800
             3600        ; negative cache ttl
             )
 ;
-        NS  ns.example.tld.
+        NS  ns1.example.tld.
+        NS  ns2.example.tld.
 ;
 ; zona inversa delegada "172.16.23.192/29"
 ; usando "/" sintaxis de CIDR y macro $GENERATE
@@ -434,7 +446,7 @@ systemctl restart bind9.service
 tail -fn100 /var/log/syslog
 
 dig example.tld
-host ns.example.tld
+host ns2.example.tld
 dig foo.example.tld
 host ns.foo.example.tld
 host 172.16.23.194
