@@ -29,14 +29,14 @@ El escenario ejemplo lo constituye una red corporativa, donde el nodo principal 
 
     * Zona `DNS`: `example.tld`
     * `FQND` servidor `DNS`: `ns.example.tld`
-    * Zona inversa: `0.16.172.in-addr.arpa`
+    * Zona inversa: `16.172.in-addr.arpa`
     * Dirección `IP` servidor `DNS`: `172.16.0.1`
 
 2. __Subdominio delegado__
 
-    * Subzona `DNS` delegada: `foo.example.tld`
+    * Subdominio `DNS` delegado: `foo.example.tld`
     * `FQND` servidor `DNS`: `ns.foo.example.tld`
-    * Zona inversa delegada: `192/29.23.16.172.in-addr.arpa`
+    * Subred delegada: `192/29.23.16.172.in-addr.arpa`
     * Dirección `IP` servidor `DNS`: `172.16.23.194`
 
 ## Administración del servidor `Bind9 DNS`
