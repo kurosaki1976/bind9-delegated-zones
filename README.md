@@ -287,7 +287,7 @@ view "proveedor" {
 
 2. Ficheros de declaración de zonas
 
-> Se obtienen por transferencia desde el servidor primario. Para forzar la transferencia de todas las zonas, ejecutar `rndc reload`, y para una específica `rndc reload 23.16.172.in-addr.arpa`.
+> Se obtienen por transferencia desde el servidor primario. Para forzar la transferencia de todas las zonas, ejecutar `rndc reload`, y para una específica `rndc reload 23.16.172.in-addr.arpa`. Para el buen funcionamiento de las transferencias, tiene que existir comunicación a través del puerto `tcp/udp 53`, entre los servidores.
 
 #### Servidor `Bind9 DNS` con subdominio delegado
 
