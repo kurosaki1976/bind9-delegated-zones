@@ -26,7 +26,7 @@ Por tanto, se pueden definir dos métodos o estrategias de delegación de subdom
 
     > **NOTA**: Tiene como ventaja que cualquier cambio, sólo requerirá una recarga de la zona principal o el subdominio, respectivamente.
 
-2. __Creación de subdominios virtuals o pseudo dominios__
+2. __Creación de subdominios virtuales o pseudo dominios__
 
     En este caso, se definirá la configuración de los subdominios, así como la configuración de la zona principal; en un mismo archivo de zona de dominio.
 
