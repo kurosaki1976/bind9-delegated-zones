@@ -8,7 +8,7 @@
 
 El objetivo de este tutorial es mostrar cómo configurar un servidor `DNS Bind9` que funcione como provedor (delegar responsabilidad de subdominios a otros servidores) y servidor con zonas delegadas. Como tutorial en sí, se le guiará a través de todo el proceso de configuración, pero se requieren conocimientos iniciales de `DNS` y `Bind9`. En las [referencias](#referencias), encontrará enlaces a sitios de `Internet` que le pueden ayudar.
 
-> **NOTA**: La implementación de esta configuración ayuda a los administradores de red cubanos a mitigar la vulnerabilidad `DDoS por amplificación de DNS`, comunmente reportada por la OSRI.
+> **NOTA**: La implementación de esta configuración ayuda a los administradores de red cubanos a mitigar la vulnerabilidad `DDoS por Amplificación de DNS`, notificada por la OSRI, como consecuencia de la recursividad en servidores DNS.
 
 #### Descripción de las zonas y de la transferencia de zonas
 
