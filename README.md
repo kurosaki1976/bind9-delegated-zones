@@ -495,6 +495,7 @@ host ns2.example.tld
 dig foo.example.tld
 host ns.foo.example.tld
 host 172.16.23.194
+dig +short 192/29.23.16.172.in-addr.arpa ptr
 ```
 
 ## Conclusiones
