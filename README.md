@@ -216,6 +216,29 @@ $ORIGIN 0.16.172.in-addr.arpa.
 10   IN  PTR mx.example.tld.
 ```
 
+* `/etc/bind/db.2.16.172.in-addr.arpa`
+
+```bash
+;
+; 172.16.0.0/24 Reverse Zone File
+;
+$ORIGIN .
+$TTL 604800
+2.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
+            2019091001  ; serial
+            3600        ; refresh
+            180         ; retry
+            604800      ; expire
+            3600        ; negative cache ttl
+            )
+;
+        NS  ns1.example.tld.
+        NS  ns2.example.tld.
+;
+$ORIGIN 2.16.172.in-addr.arpa.
+18    IN  PTR ns2.example.tld.
+```
+
 * `/etc/bind/db.23.16.172.in-addr.arpa`
 
 ```bash
