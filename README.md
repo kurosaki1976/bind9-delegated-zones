@@ -531,3 +531,4 @@ dig +short 194.192/29.23.16.172.in-addr.arpa ptr
 * [Classless IN-ADDR.ARPA delegation](https://tools.ietf.org/html/rfc2317)
 * [Classless in-addr.arpa subnet delegation](https://kb.isc.org/docs/aa-01589)
 * [Classless reverse address delegation](https://www.netdaily.org/tag/29-classless-reverse-delegation-bind/)
+* [Configure BIND as a slave DNS server](http://www.microhowto.info/howto/configure_bind_as_a_slave_dns_server.html)
