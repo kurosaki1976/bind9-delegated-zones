@@ -43,9 +43,9 @@ El escenario ejemplo lo constituye una red corporativa, donde el nodo principal 
     * Zona `DNS`: `example.tld`
     * Zona inversa: `16.172.in-addr.arpa`
     * `FQND` servidor `DNS` primario: `ns1.example.tld`
-    * Dirección `IP` servidor `DNS` primario: `172.16.0.1`
+    * Dirección `IP` servidor `DNS` primario: `172.16.0.18`
     * `FQND` servidor `DNS` secundario: `ns2.example.tld`
-    * Dirección `IP` servidor `DNS` secundario: `172.16.0.18`
+    * Dirección `IP` servidor `DNS` secundario: `172.16.2.18`
 
 2. __Subdominio delegado__
 
@@ -137,6 +137,13 @@ view "proveedor" {
         also-notify { 172.16.2.18; };
         notify yes;
     };
+     zone "2.16.172.in-addr.arpa" {
+        type slave;
+        file "/etc/bind/db.2.16.172.in-addr.arpa";
+        allow-transfer { 172.16.2.18; };
+        also-notify { 172.16.2.18; };
+        notify yes;
+    };
     zone "23.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
@@ -205,9 +212,8 @@ $TTL 604800
         NS  ns2.example.tld.
 ;
 $ORIGIN 0.16.172.in-addr.arpa.
-1    IN  PTR ns1.example.tld.
+18    IN  PTR ns1.example.tld.
 10   IN  PTR mx.example.tld.
-18   IN  PTR ns2.example.tld.
 ```
 
 * `/etc/bind/db.23.16.172.in-addr.arpa`
@@ -277,6 +283,11 @@ view "proveedor" {
     zone "0.16.172.in-addr.arpa" {
         type slave;
         file "/etc/bind/db.0.16.172.in-addr.arpa";
+        masters { 172.16.0.18; };
+    };
+    zone "2.16.172.in-addr.arpa" {
+        type slave;
+        file "/etc/bind/db.2.16.172.in-addr.arpa";
         masters { 172.16.0.18; };
     };
     zone "23.16.172.in-addr.arpa" {
