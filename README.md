@@ -91,12 +91,12 @@ options {
     directory "/var/cache/bind";
     dnssec-enable yes;
     dnssec-validation yes;
-    listen-on { 172.16.0.1; 127.0.0.1; };
-    auth-nxdomain no;
+    listen-on { 172.16.0.18; 127.0.0.1; };
+    auth-nxdomain yes;
     listen-on-v6 { none; };
     empty-zones-enable no;
     allow-query { any; };
-    recursion no;
+    recursion yes;
     minimal-responses yes;
     max-cache-size 128m;
     rate-limit {
@@ -110,7 +110,7 @@ options {
 
 controls {
     inet 127.0.0.1 port 953
-        allow { localhost; 172.16.0.1; } keys { rndc-key; };
+        allow { localhost; 172.16.0.18; } keys { rndc-key; };
 };
 ```
 
@@ -126,22 +126,22 @@ view "proveedor" {
     zone "example.tld" {
         type master;
         file "/etc/bind/db.example.tld";
-        allow-transfer { 172.16.0.18; };
-        also-notify { 172.16.0.18; };
+        allow-transfer { 172.16.2.18; };
+        also-notify { 172.16.2.18; };
         notify yes;
     };
     zone "0.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.0.16.172.in-addr.arpa";
-        allow-transfer { 172.16.0.18; };
-        also-notify { 172.16.0.18; };
+        allow-transfer { 172.16.2.18; };
+        also-notify { 172.16.2.18; };
         notify yes;
     };
     zone "23.16.172.in-addr.arpa" {
         type master;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
-        allow-transfer { 172.16.0.18; };
-        also-notify { 172.16.0.18; };
+        allow-transfer { 172.16.2.18; };
+        also-notify { 172.16.2.18; };
         notify yes;
     };
 };
@@ -167,16 +167,16 @@ example.tld IN  SOA ns1.example.tld. postmaster.example.tld. (
 ;
         NS  ns1.example.tld.
         NS  ns2.example.tld.
-        A   172.16.0.1
         A   172.16.0.18
+        A   172.16.2.18
         MX  10   mx.example.tld.
         TXT "v=spf1 ip4:172.16.0.10 a:mx.example.tld ~all"
 ;
 $ORIGIN example.tld.
 ;
-ns1  IN  A   172.16.0.1
+ns1  IN  A   172.16.0.18
 mx   IN  A   172.16.0.10
-ns2  IN  A   172.16.0.18
+ns2  IN  A   172.16.2.18
 ;
 ; subdominio delegado "foo.example.tld"
 $ORIGIN foo.example.tld.
@@ -258,7 +258,7 @@ $GENERATE 192-199 $ CNAME $.192-199.23.16.172.IN-ADDR.ARPA.
 
 * `/etc/bind/named.conf.options`
 
-> Cambiar `listen-on { 172.16.0.18; 127.0.0.1; };` y `allow { localhost; 172.16.0.18; } keys { rndc-key; };`.
+> Cambiar `listen-on { 172.16.2.18; 127.0.0.1; };` y `allow { localhost; 172.16.2.18; } keys { rndc-key; };`.
 
 * `/etc/bind/named.conf.local`
 
@@ -267,22 +267,22 @@ view "proveedor" {
     match-clients { localhost; 172.16.0.0/16; };
     recursion yes;
     allow-recursion { localhost; 172.16.0.0/16; };
-    allow-recursion-on { localhost; 172.16.0.18; };
+    allow-recursion-on { localhost; 172.16.2.18; };
     include "/etc/bind/named.conf.default-zones";
     zone "example.tld" {
         type slave;
         file "/etc/bind/db.example.tld";
-        masters { 172.16.0.1; };
+        masters { 172.16.0.18; };
     };
     zone "0.16.172.in-addr.arpa" {
         type slave;
         file "/etc/bind/db.0.16.172.in-addr.arpa";
-        masters { 172.16.0.1; };
+        masters { 172.16.0.18; };
     };
     zone "23.16.172.in-addr.arpa" {
         type slave;
         file "/etc/bind/db.23.16.172.in-addr.arpa";
-        masters { 172.16.0.1; };
+        masters { 172.16.0.18; };
     };
 };
 ```
@@ -315,6 +315,8 @@ options {
     listen-on { 172.16.23.194; 127.0.0.1; };
     auth-nxdomain no;
     listen-on-v6 { none; };
+    forwarders { 172.16.0.18; 172.16.2.18; };
+    forward first;
     empty-zones-enable no;
     allow-query { any; };
     recursion no;
@@ -339,9 +341,7 @@ controls {
 ```bash
 view "cliente" {
     match-clients { localhost; 172.16.0.0/16; };
-    recursion yes;
-    allow-recursion { localhost; 172.16.0.0/16; };
-    allow-recursion-on { localhost; 172.16.23.194; };
+    recursion no;
     include "/etc/bind/named.conf.default-zones";
     zone "foo.example.tld" {
         type master;
@@ -429,12 +429,12 @@ Fichero `/etc/bind/named.conf.log` para almacenamiento de trazas, bitácora de e
 ```bash
 logging {
     channel "named-query" {
-        file "/var/log/named_query.log" versions 3 size 5m;
+        file "/var/log/named_query.log" versions 1 size 5m;
         severity debug 3;
         print-time yes;
     };
     channel "debug" {
-        file "/var/log/named.log" versions 2 size 3m;
+        file "/var/log/named.log" versions 1 size 3m;
         print-time yes;
         print-category yes;
     };
@@ -495,7 +495,7 @@ host ns2.example.tld
 dig foo.example.tld
 host ns.foo.example.tld
 host 172.16.23.194
-dig +short 192/29.23.16.172.in-addr.arpa ptr
+dig +short 194.192/29.23.16.172.in-addr.arpa ptr
 ```
 
 ## Conclusiones
