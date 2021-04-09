@@ -263,9 +263,11 @@ $TTL 604800
 $ORIGIN 23.16.172.IN-ADDR.ARPA.
 192/29  IN      NS      ns.foo.example.tld.
 $GENERATE 192-199 $ CNAME $.192/29.23.16.172.IN-ADDR.ARPA.
+; o abreviando
+$GENERATE 192-199 $ CNAME $.192/29
 ```
 
-> **NOTA**: La sintáxis `192/29` es un modo artificial (pero legítimo) para la construcción de zonas inversas delegadas. Antes del [RFC 2181](https://tools.ietf.org/html/rfc2181) el símbolo `/` no era un caracter legal para ser usado en el sistema de nombres de dominio, en su lugar se usaba el símbolo `-`.
+> **NOTA**: La sintaxis `192/29` es un modo artificial (pero legítimo) para la construcción de zonas inversas delegadas. Antes del [RFC 2181](https://tools.ietf.org/html/rfc2181) el símbolo `/` no era un caracter legal para ser usado en el sistema de nombres de dominio, en su lugar se usaba el símbolo `-`.
 
 Entonces es válido también realizar la delegación de esta forma:
 
@@ -275,6 +277,8 @@ Entonces es válido también realizar la delegación de esta forma:
 $ORIGIN 23.16.172.IN-ADDR.ARPA.
 192-199  IN      NS      ns.foo.example.tld.
 $GENERATE 192-199 $ CNAME $.192-199.23.16.172.IN-ADDR.ARPA.
+; o abreviando
+$GENERATE 192-199 $ CNAME $.192-199
 ```
 
 #### Servidor `Bind9 DNS` secundario de nivel superior
