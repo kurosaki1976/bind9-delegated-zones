@@ -540,7 +540,7 @@ dig +short 194.192/29.23.16.172.in-addr.arpa ptr
 
 - Cuando se utiliza las funcionalidad de vistas, todas las definiciones de zonas **TIENEN** que estar contenidas dentro de éstas, de lo contrario el servicio no iniciará y generará códigos de error. Es por ello que -__en ambas configuraciones__-, el fichero **`/etc/bind/named.conf.default-zones`** fue incluido en cada definición de vista y no en el fichero de configuración principal.
 
-- En el caso de zonas inversas delegadas, la recursividad es obligatoria, sin importar el uso o no de la funcionalidad de vistas. Ello se debe a que la consulta es redirigida desde el servidor `DNS` responsable de la zona principal hacia el responsable de la subred delegada, y viceversa.
+- En el caso de la delegación de zonas, la recursividad es obligatoria en el ámbito del proveedor, sin importar el uso o no de la funcionalidad de vistas. Ello se debe a que la consulta es redirigida desde el servidor `DNS` responsable de la zona principal hacia el responsable de la subred delegada, y viceversa.
 
 - Las configuraciones mostradas en esta guía utilizan la estrategia de __delegación completa de subdominios__, y son aplicables a los entornos de red `VPN` corporativas existentes en Cuba.
 
