@@ -396,7 +396,7 @@ view "cliente" {
 };
 ```
 
-> **NOTA**: Si se usa `-` (sintáxis de rango), la definición de la zona inversa sería `zone "192-199.23.16.172.in-addr.arpa"`.
+> **NOTA**: Si se usa `-` (sintaxis de rango), la definición de la zona inversa sería `zone "192-199.23.16.172.in-addr.arpa"`.
 
 2. Ficheros de declaración de zonas
 
@@ -458,7 +458,7 @@ $ORIGIN 192/29.23.16.172.IN-ADDR.ARPA.
 198   IN  PTR ftp.foo.example.tld.
 ```
 
-> **NOTA**: Si se usa `-` (sintáxis de rango), la definición de la zona inversa sería `192-199.23.16.172.IN-ADDR.ARPA`.
+> **NOTA**: Si se usa `-` (sintaxis de rango), la definición de la zona inversa sería `192-199.23.16.172.IN-ADDR.ARPA`.
 
 #### Para ambos servidores `Bind9 DNS`
 
@@ -520,7 +520,7 @@ named-checkzone foo.example.tld /etc/bind/db.foo.example.tld
 named-checkzone 192/29.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa
 ```
 
-> **NOTA**: Si se usa `-` (sintáxis de rango), la comprobación sería `named-checkzone 192-199.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa`.
+> **NOTA**: Si se usa `-` (sintaxis de rango), la comprobación sería `named-checkzone 192-199.23.16.172.IN-ADDR.ARPA /etc/bind/db.23.16.172.in-addr.arpa`.
 
 2. Reiniciar el servicio y realizar comprobaciones.
 
