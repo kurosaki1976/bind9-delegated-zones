@@ -220,7 +220,7 @@ $ORIGIN 0.16.172.in-addr.arpa.
 
 ```bash
 ;
-; 172.16.0.0/24 Reverse Zone File
+; 172.16.2.0/24 Reverse Zone File
 ;
 $ORIGIN .
 $TTL 604800
