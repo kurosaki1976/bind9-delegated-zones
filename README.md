@@ -202,10 +202,10 @@ $ORIGIN .
 $TTL 604800
 0.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001  ; serial
-            3600        ; refresh
-            180         ; retry
-            604800      ; expire
-            3600        ; negative cache ttl
+            3600        ; refresh [1h]
+            600         ; retry [10m]
+            1209600     ; expire [14d]
+            3600        ; negative cache ttl [1h]
             )
 ;
         NS  ns1.example.tld.
@@ -227,8 +227,8 @@ $TTL 604800
 2.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001  ; serial
             3600        ; refresh
-            180         ; retry
-            604800      ; expire
+            600         ; retry
+            1209600     ; expire
             3600        ; negative cache ttl
             )
 ;
@@ -250,8 +250,8 @@ $TTL 604800
 23.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001  ; serial
             3600        ; refresh
-            180         ; retry
-            604800      ; expire
+            600         ; retry
+            1209600     ; expire
             3600        ; negative cache ttl
             )
 ;
@@ -411,8 +411,8 @@ $TTL 604800
 foo.example.tld IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
             2019091201  ; Serial
             3600        ; refresh
-            180         ; retry
-            604800      ; expire
+            600         ; retry
+            1209600     ; expire
             3600        ; negative cache ttl
             )
 ;
@@ -442,8 +442,8 @@ $TTL 604800
 192/29.23.16.172.IN-ADDR.ARPA IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
             2019091001  ; serial
             3600        ; refresh
-            180         ; retry
-            604800      ; expire
+            600         ; retry
+            1209600     ; expire
             3600        ; negative cache ttl
             )
 ;
