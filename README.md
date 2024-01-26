@@ -79,7 +79,7 @@ apt install bind9 dnsutils
 ```bash
 include "/etc/bind/named.conf.options";
 include "/etc/bind/named.conf.local";
-include "/etc/bind/named.conf.log"
+include "/etc/bind/named.conf.log";
 include "/etc/bind/rndc.key";
 ```
 
@@ -89,10 +89,9 @@ include "/etc/bind/rndc.key";
 options {
     version none;
     directory "/var/cache/bind";
-    dnssec-enable yes;
-    dnssec-validation yes;
+    dnssec-validation auto;
     listen-on { 172.16.0.18; 127.0.0.1; };
-    auth-nxdomain yes;
+    auth-nxdomain no;
     listen-on-v6 { none; };
     empty-zones-enable no;
     allow-query { any; };
@@ -163,13 +162,13 @@ view "proveedor" {
 ; example.tld DNS Domain Zone File
 ;
 $ORIGIN .
-$TTL 604800
+$TTL 1H
 example.tld IN  SOA ns1.example.tld. postmaster.example.tld. (
-            2019091201  ; Serial
-            3600        ; refresh [1h]
-            600         ; retry [10m]
-            1209600     ; expire [14d]
-            3600        ; negative cache ttl [1h]
+            2019091201 ; serial
+            1H         ; refresh
+            10M        ; retry
+            1W         ; expire
+            1H         ; negative cache ttl
             )
 ;
         NS  ns1.example.tld.
@@ -180,13 +179,14 @@ example.tld IN  SOA ns1.example.tld. postmaster.example.tld. (
         TXT "v=spf1 ip4:172.16.0.10 a:mx.example.tld ~all"
 ;
 $ORIGIN example.tld.
-;
+$TTL 5M
 ns1  IN  A   172.16.0.18
 mx   IN  A   172.16.0.10
 ns2  IN  A   172.16.2.18
 ;
 ; subdominio delegado "foo.example.tld"
 $ORIGIN foo.example.tld.
+$TTL 5M
 @  IN  NS  ns.foo.example.tld.
        A   172.16.23.194
 ns IN  A   172.16.23.194
@@ -199,19 +199,20 @@ ns IN  A   172.16.23.194
 ; 172.16.0.0/24 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 604800
+$TTL 1H
 0.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
-            2019091001  ; serial
-            3600        ; refresh
-            600         ; retry
-            1209600     ; expire
-            3600        ; negative cache ttl
+            2019091001 ; serial
+            1H         ; refresh
+            10M        ; retry
+            1W         ; expire
+            1H         ; negative cache ttl
             )
 ;
         NS  ns1.example.tld.
         NS  ns2.example.tld.
 ;
 $ORIGIN 0.16.172.in-addr.arpa.
+$TTL 5M
 18    IN  PTR ns1.example.tld.
 10   IN  PTR mx.example.tld.
 ```
@@ -223,19 +224,20 @@ $ORIGIN 0.16.172.in-addr.arpa.
 ; 172.16.2.0/24 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 604800
+$TTL 1H
 2.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
-            2019091001  ; serial
-            3600        ; refresh
-            600         ; retry
-            1209600     ; expire
-            3600        ; negative cache ttl
+            2019091001 ; serial
+            1H         ; refresh
+            10M        ; retry
+            1W         ; expire
+            1H         ; negative cache ttl
             )
 ;
         NS  ns1.example.tld.
         NS  ns2.example.tld.
 ;
 $ORIGIN 2.16.172.in-addr.arpa.
+$TTL 5M
 18    IN  PTR ns2.example.tld.
 ```
 
@@ -246,13 +248,13 @@ $ORIGIN 2.16.172.in-addr.arpa.
 ; 172.16.23.0/24 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 604800
+$TTL 1H
 23.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
-            2019091001  ; serial
-            3600        ; refresh
-            600         ; retry
-            1209600     ; expire
-            3600        ; negative cache ttl
+            2019091001 ; serial
+            1H         ; refresh
+            10M        ; retry
+            1W         ; expire
+            1H         ; negative cache ttl
             )
 ;
         NS  ns1.example.tld.
@@ -261,6 +263,7 @@ $TTL 604800
 ; zona inversa delegada "172.16.23.192/29"
 ; usando "/" sintaxis de CIDR y macro $GENERATE
 $ORIGIN 23.16.172.IN-ADDR.ARPA.
+$TTL 5M
 192/29  IN      NS      ns.foo.example.tld.
 $GENERATE 192-199 $ CNAME $.192/29.23.16.172.IN-ADDR.ARPA.
 ; o abreviando
@@ -338,7 +341,7 @@ view "proveedor" {
 ```bash
 include "/etc/bind/named.conf.options";
 include "/etc/bind/named.conf.local";
-include "/etc/bind/named.conf.log"
+include "/etc/bind/named.conf.log";
 include "/etc/bind/rndc.key";
 ```
 
@@ -348,8 +351,7 @@ include "/etc/bind/rndc.key";
 options {
     version none;
     directory "/var/cache/bind";
-    dnssec-enable yes;
-    dnssec-validation yes;
+    dnssec-validation auto;
     listen-on { 172.16.23.194; 127.0.0.1; };
     auth-nxdomain no;
     listen-on-v6 { none; };
@@ -407,13 +409,13 @@ view "cliente" {
 ; foo.example.tld DNS Domain Zone File
 ;
 $ORIGIN .
-$TTL 604800
+$TTL 1H
 foo.example.tld IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
-            2019091201  ; Serial
-            3600        ; refresh
-            600         ; retry
-            1209600     ; expire
-            3600        ; negative cache ttl
+            2019091201 ; serial
+            1H         ; refresh
+            10M        ; retry
+            1W         ; expire
+            1H         ; negative cache ttl
             )
 ;
         NS  ns.foo.example.tld.
@@ -422,7 +424,7 @@ foo.example.tld IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
         TXT "v=spf1 ip4:172.16.23.195 a:mail.foo.example.tld include:example.tld ~all"
 ;
 $ORIGIN foo.example.tld.
-;
+$TTL 5M
 router IN  A   172.16.23.193
 ns     IN  A   172.16.23.194
 mail   IN  A   172.16.23.195
@@ -438,18 +440,19 @@ ftp    IN  A   172.16.23.198
 ; 172.16.23.192/29 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 604800
+$TTL 1H
 192/29.23.16.172.IN-ADDR.ARPA IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
-            2019091001  ; serial
-            3600        ; refresh
-            600         ; retry
-            1209600     ; expire
-            3600        ; negative cache ttl
+            2019091001 ; serial
+            1H         ; refresh
+            10M        ; retry
+            1W         ; expire
+            1H         ; negative cache ttl
             )
 ;
         NS  ns.foo.example.tld.
 ;
 $ORIGIN 192/29.23.16.172.IN-ADDR.ARPA.
+$TTL 5M
 193   IN  PTR router.foo.example.tld.
 194   IN  PTR ns.foo.example.tld.
 195   IN  PTR mail.foo.example.tld.
