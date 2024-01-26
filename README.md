@@ -162,12 +162,12 @@ view "proveedor" {
 ; example.tld DNS Domain Zone File
 ;
 $ORIGIN .
-$TTL 1H
+$TTL 1W
 example.tld IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091201 ; serial
             1H         ; refresh
             10M        ; retry
-            1W         ; expire
+            2W         ; expire
             1H         ; negative cache ttl
             )
 ;
@@ -199,12 +199,12 @@ ns IN  A   172.16.23.194
 ; 172.16.0.0/24 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 1H
+$TTL 1W
 0.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001 ; serial
             1H         ; refresh
             10M        ; retry
-            1W         ; expire
+            2W         ; expire
             1H         ; negative cache ttl
             )
 ;
@@ -224,12 +224,12 @@ $TTL 5M
 ; 172.16.2.0/24 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 1H
+$TTL 1W
 2.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001 ; serial
             1H         ; refresh
             10M        ; retry
-            1W         ; expire
+            2W         ; expire
             1H         ; negative cache ttl
             )
 ;
@@ -248,12 +248,12 @@ $TTL 5M
 ; 172.16.23.0/24 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 1H
+$TTL 1W
 23.16.172.IN-ADDR.ARPA IN  SOA ns1.example.tld. postmaster.example.tld. (
             2019091001 ; serial
             1H         ; refresh
             10M        ; retry
-            1W         ; expire
+            2W         ; expire
             1H         ; negative cache ttl
             )
 ;
@@ -409,12 +409,12 @@ view "cliente" {
 ; foo.example.tld DNS Domain Zone File
 ;
 $ORIGIN .
-$TTL 1H
+$TTL 1W
 foo.example.tld IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
             2019091201 ; serial
             1H         ; refresh
             10M        ; retry
-            1W         ; expire
+            2W         ; expire
             1H         ; negative cache ttl
             )
 ;
@@ -440,12 +440,12 @@ ftp    IN  A   172.16.23.198
 ; 172.16.23.192/29 Reverse Zone File
 ;
 $ORIGIN .
-$TTL 1H
+$TTL 1W
 192/29.23.16.172.IN-ADDR.ARPA IN  SOA ns.foo.example.tld. postmaster.foo.example.tld. (
             2019091001 ; serial
             1H         ; refresh
             10M        ; retry
-            1W         ; expire
+            2W         ; expire
             1H         ; negative cache ttl
             )
 ;
